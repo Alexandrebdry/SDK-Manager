@@ -1,6 +1,5 @@
 <?php
 
-require "Provider.php" ;
 require "ProviderInit.php" ;
 
 $providerArray = [
