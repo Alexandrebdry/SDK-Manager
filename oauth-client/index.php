@@ -46,7 +46,9 @@ switch ($route) {
             echo "<a href=" . $provider->getUrlAuth() . "response_type=code"
             . "&client_id=" . $provider->getClientId()
             . "&redirect_uri=" .$provider->getRedirectUri()
-            . $provider->getScope() . ">Login with " . $providerName . "</a><br>" ;
+            . $provider->getScope()
+            . $provider->getState()
+            .">Login with " . $providerName . "</a><br>" ;
         }
         break;
     case '/success':

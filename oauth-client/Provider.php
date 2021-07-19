@@ -10,8 +10,9 @@ Class Provider {
 	private $urlResult;
 	private $redirectUri ;
 	private $scope ;
+	private $state ;
 
-	public function __construct(string $clientID, string $clientSecret,string $urlAuth, string $urlToken, string $urlResult, string $redirectUri = null, string $scope = "basic&state=dsdsfsfds"){
+	public function __construct(string $clientID, string $clientSecret,string $urlAuth, string $urlToken, string $urlResult, string $redirectUri = null, string $scope = "basic", string $state ="dsdsfsfds"){
 		$this->clientID = $clientID ;
 		$this->clientSecret = $clientSecret;
 		$this->urlAuth = $urlAuth;
@@ -19,6 +20,7 @@ Class Provider {
 		$this->urlResult = $urlResult ;
 		$this->redirectUri = $redirectUri ;
 		$this->scope = $scope ;
+		$this->state = $state ;
 	}
 
 	public function getUser(array $params) {
@@ -62,5 +64,9 @@ Class Provider {
 
     public function getScope() {
 	    return '&scope=' . $this->scope ;
+    }
+
+    public function getState() {
+	    return '&state=' . $this->state ;
     }
 }
