@@ -10,7 +10,7 @@ Class Provider {
 	private $urlResult;
 	private $redirectUri ;
 
-	public function __construct(string $clientID, string $clientSecret,string $urlAuth, string $urlToken, string $urlResult, string $redirectUri){
+	public function __construct(string $clientID, string $clientSecret,string $urlAuth, string $urlToken, string $urlResult, string $redirectUri = null){
 		$this->clientID = $clientID ;
 		$this->clientSecret = $clientSecret;
 		$this->urlAuth = $urlAuth;
