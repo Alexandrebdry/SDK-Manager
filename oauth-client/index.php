@@ -23,7 +23,6 @@ $providerArray = [
 
 
 $providers = init($providerArray) ;
-var_dump($providers) ;
 
 $route = strtok($_SERVER['REQUEST_URI'], '?');
 switch ($route) {
@@ -40,9 +39,10 @@ switch ($route) {
             . "&redirect_uri=https://localhost/fb-success"
             . "&scope=email&state=dsdsfsfds'>Login with facebook</a>";*/
         foreach ($providers as $providerName => $provider) {
-            echo "<a href=" . $provider->getAuthUrl() . "response_type=code"
+
+            echo "<a href=" . $provider->getUrlAuth() . "response_type=code"
             . "&client_id=" . $provider->getClientId() 
-            . "&scope=basic&state=dsdsfsfds'>Login with " $providerName . "</a>" ;  
+            . "&scope=basic&state=dsdsfsfds'>Login with " . $providerName . "</a><br>" ;
         }
         break;
     case '/success':
