@@ -23,6 +23,17 @@ $providerArray = [
             "redirectUri"=>null,
             "scope" => "email%20identify",
             "state" => "discord",
+        ],
+    "github"=>
+        [
+            "clientID"=>"44885a5fca3c5ae32715",
+            "clientSecret"=>"af0f571a64229738c8d856d1d2267835e5cf0dc0",
+            "urlAuth"=>"https://github.com/login/oauth/authorize?",
+            "urlToken"=>"https://github.com/login/oauth/access_token?",
+            "urlResult"=>"https://api.github.com/user?" ,
+            "redirectUri"=>null,
+            "scope" => 'user',
+            "state" => "github",
         ]
 ] ;
 
@@ -47,7 +58,7 @@ switch ($route) {
 
             echo "<a href=" . $provider->getUrlAuth() . "response_type=code"
             . "&client_id=" . $provider->getClientId()
-            . "&redirect_uri=" .$provider->getRedirectUri()
+            . $provider->getRedirectUri()
             . $provider->getScope()
             . $provider->getState()
             .">Login with " . $providerName . "</a><br>" ;
@@ -59,16 +70,8 @@ switch ($route) {
         // ECHANGE CODE => TOKEN
         $providers[$state]->getUser([
             "grant_type" => "authorization_code",
-            "code" => $code
-        ]);
-        break;
-    case '/fb-success':
-        // GET CODE
-        ["code" => $code, "state" => $state] = $_GET;
-        // ECHANGE CODE => TOKEN
-        getFbUser([
-            "grant_type" => "authorization_code",
-            "code" => $code
+            "code" => $code,
+            "redirect_uri" => "/auth-code"
         ]);
         break;
     case '/error':

@@ -25,12 +25,16 @@ Class Provider {
 
 	public function getUser(array $params) {
 
+	    var_dump($this->urlToken . "client_id=" . $this->clientID
+            . "&client_secret=" . $this->clientSecret
+            . "&" . http_build_query($params));
 		$result = file_get_contents(
 			$this->urlToken . "client_id=" . $this->clientID
 			. "&client_secret=" . $this->clientSecret
 			. "&" . http_build_query($params)
 		);
-		
+
+		echo($result);
 		$token = json_decode($result,true)["access_token"] ;
 
 		//Getting user by Token
@@ -59,7 +63,7 @@ Class Provider {
 	}
 
 	public function getRedirectUri() {
-	    return $this->redirectUri ;
+	    return '&redirect_uri=' . $this->redirectUri ;
     }
 
     public function getScope() {
