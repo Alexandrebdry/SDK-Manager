@@ -1,60 +1,19 @@
 <?php
-const CLIENT_ID = "client_606c5bfe886e14.91787997";
-const CLIENT_SECRET = "2ce690b11c94aca36d9ec493d9121f9dbd5c96a5";
-const FBCLIENT_ID = "313096147158775";
-const FBCLIENT_SECRET = "c4ac86c990ffd48b3322d3734ec4ed1a";
 
+require Provider ;
 
-function getUser($params)
-{
-    $result = file_get_contents("http://oauth-server:8081/token?"
-        . "client_id=" . CLIENT_ID
-        . "&client_secret=" . CLIENT_SECRET
-        . "&" . http_build_query($params));
-    $token = json_decode($result, true)["access_token"];
-    // GET USER by TOKEN
-    $context = stream_context_create([
-        'http' => [
-            'method' => "GET",
-            'header' => "Authorization: Bearer " . $token
-        ]
-    ]);
-    $result = file_get_contents("http://oauth-server:8081/api", false, $context);
-    $user = json_decode($result, true);
-    var_dump($user);
-}
-function getFbUser($params)
-{
-    $result = file_get_contents("https://graph.facebook.com/oauth/access_token?"
-        . "redirect_uri=https://localhost/fb-success"
-        . "&client_id=" . FBCLIENT_ID
-        . "&client_secret=" . FBCLIENT_SECRET
-        . "&" . http_build_query($params));
-    $token = json_decode($result, true)["access_token"];
-    // GET USER by TOKEN
-    $context = stream_context_create([
-        'http' => [
-            'method' => "GET",
-            'header' => "Authorization: Bearer " . $token
-        ]
-    ]);
-    $result = file_get_contents("https://graph.facebook.com/me", false, $context);
-    $user = json_decode($result, true);
-    var_dump($user);
-}
+$providerArray = [
+    "basic"=>
+        [
+            "clientID"=>"client_606c5bfe886e14.91787997",
+            "clientSecret"=>"2ce690b11c94aca36d9ec493d9121f9dbd5c96a5",
+            "urlAuth"=>"http://localhost:8081/auth?"
+            "urlToken"=>"http://oauth-server:8081/token?",
+            "urlResult"=>"http://oauth-server:8081/api"
+        ],
+] ;
 
-/**
- * AUTH_CODE WORKFLOW
- *  => Get CODE
- *  => EXCHANGE CODE => TOKEN
- *  => GET USER by TOKEN
- */
-/**
- * PASSWORD WORKFLOW
- * => GET USERNAME/PASSWORD (form)
- * => EXHANGE U/P => TOKEN
- * => GET USER by TOKEN
- */
+ 
 
 $route = strtok($_SERVER['REQUEST_URI'], '?');
 switch ($route) {

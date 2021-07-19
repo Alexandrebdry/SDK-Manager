@@ -2,13 +2,26 @@
 
 Class Provider {
 
-	private $user ; 
 
-	public function getUser(array $params, string $url, string $urlResult, string $clientID, string $clientSecret) {
+	private $clientID ;
+	private $clientSecret ;
+	private $urlAuth ;
+	private $urlToken;
+	private $urlResult;
+
+	public function __construct(string $clientID, string $clientSecret,string $urlAuth, string $urlToken, string $urlResult){
+		$this->clientID = $clientID ;
+		$this->clientSecret = $clientSecret;
+		$this->urlAuth ;
+		$this->urlToken = $urlToken ;
+		$this->urlResult ;
+	}
+
+	public function getUser(array $params) {
 
 		$result = file_get_contents(
-			$url . "client_id=" . $client_id 
-			. "&client_secret=" . $clientSecret
+			$this->url . "client_id=" . $this->client_id
+			. "&client_secret=" . $this->clientSecret
 			. "&" . http_build_query($params)
 		);
 		
@@ -25,9 +38,15 @@ Class Provider {
 				]
 		]);
 
-		$result = file_get_contents($urlResult, false, $context);
+		$result = file_get_contents($this->urlResult, false, $context);
 
-		$this->user = json_decode($result,true) ; 
-		var_dump($this->user) ;
+		$user = json_decode($result,true) ; 
+		var_dump($user) ;
 	}
+
+	public function getUrlAuth() {
+		return $this->urlAuth ;
+	}
+
+
 }
