@@ -10,7 +10,8 @@ $providerArray = [
             "urlAuth"=>"http://localhost:8081/auth?",
             "urlToken"=>"http://oauth-server:8081/token?",
             "urlResult"=>"http://oauth-server:8081/api",
-            "redirectUri"=>null
+            "redirectUri"=>null,
+            "state" => "basic",
         ],
     "discord"=>
         [
@@ -20,7 +21,8 @@ $providerArray = [
             "urlToken"=>"https://discord.com/api/oauth2/token?",
             "urlResult"=>"https://discord.com/oauth2/@me?" ,
             "redirectUri"=>null,
-            "scope" => "email%20identify"
+            "scope" => "email%20identify",
+            "state" => "discord",
         ]
 ] ;
 
@@ -55,7 +57,7 @@ switch ($route) {
         // GET CODE
         ["code" => $code, "state" => $state] = $_GET;
         // ECHANGE CODE => TOKEN
-        getUser([
+        $providers[$state]->getUser([
             "grant_type" => "authorization_code",
             "code" => $code
         ]);
