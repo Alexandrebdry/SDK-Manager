@@ -1,6 +1,7 @@
 <?php
 
-require Provider ;
+require Provider.php ;
+require ProviderInit.php ;
 
 $providerArray = [
     "basic"=>
@@ -11,9 +12,18 @@ $providerArray = [
             "urlToken"=>"http://oauth-server:8081/token?",
             "urlResult"=>"http://oauth-server:8081/api"
         ],
+    "discord"=>
+        [
+            "clientID"=>"866742283759648788",
+            "clientSecret"=>"4KzIHbZBbQoDiLZD_ZABNKqe4LERzP5p",
+            "urlAuth"=>"https://discord.com/api/oauth2/authorize?"
+            "urlToken"=>"https://discord.com/api/oauth2/token?",
+            "urlResult"=>"https://discord.com/oauth2/@me?"  
+        ]
 ] ;
 
- 
+
+init($providerArray) ;
 
 $route = strtok($_SERVER['REQUEST_URI'], '?');
 switch ($route) {
