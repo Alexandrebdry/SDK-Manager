@@ -48,5 +48,9 @@ Class Provider {
 		return $this->urlAuth ;
 	}
 
+	public function getClientId() {
+		return $this->clientID ;
+	}
+
 
 }

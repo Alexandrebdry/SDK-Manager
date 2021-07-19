@@ -30,7 +30,7 @@ switch ($route) {
     case '/auth-code':
         // Gérer le workflow "authorization_code" jusqu'à afficher les données utilisateurs
         echo '<h1>Login with Auth-Code</h1>';
-        echo "<a href='http://localhost:8081/auth?"
+      /*  echo "<a href='http://localhost:8081/auth?"
             . "response_type=code"
             . "&client_id=" . CLIENT_ID
             . "&scope=basic&state=dsdsfsfds'>Login with oauth-server</a>";
@@ -38,7 +38,12 @@ switch ($route) {
             . "response_type=code"
             . "&client_id=" . FBCLIENT_ID
             . "&redirect_uri=https://localhost/fb-success"
-            . "&scope=email&state=dsdsfsfds'>Login with facebook</a>";
+            . "&scope=email&state=dsdsfsfds'>Login with facebook</a>";*/
+        foreach ($providers as $providerName => $provider) {
+            echo "<a href=" . $provider->getAuthUrl() . "response_type=code"
+            . "&client_id=" . $provider->getClientId() 
+            . "&scope=basic&state=dsdsfsfds'>Login with " $providerName . "</a>" ;  
+        }
         break;
     case '/success':
         // GET CODE
