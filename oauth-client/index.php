@@ -19,7 +19,8 @@ $providerArray = [
             "urlAuth"=>"https://discord.com/api/oauth2/authorize?",
             "urlToken"=>"https://discord.com/api/oauth2/token?",
             "urlResult"=>"https://discord.com/oauth2/@me?" ,
-            "redirectUri"=>null
+            "redirectUri"=>null,
+            "scope" => "email%20identify"
         ]
 ] ;
 
@@ -45,7 +46,7 @@ switch ($route) {
             echo "<a href=" . $provider->getUrlAuth() . "response_type=code"
             . "&client_id=" . $provider->getClientId()
             . "&redirect_uri=" .$provider->getRedirectUri()
-            . "&scope=basic&state=dsdsfsfds'>Login with " . $providerName . "</a><br>" ;
+            . $provider->getScope() . ">Login with " . $providerName . "</a><br>" ;
         }
         break;
     case '/success':
