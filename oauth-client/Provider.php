@@ -8,19 +8,21 @@ Class Provider {
 	private $urlAuth ;
 	private $urlToken;
 	private $urlResult;
+	private $redirectUri ;
 
-	public function __construct(string $clientID, string $clientSecret,string $urlAuth, string $urlToken, string $urlResult){
+	public function __construct(string $clientID, string $clientSecret,string $urlAuth, string $urlToken, string $urlResult, string $redirectUri){
 		$this->clientID = $clientID ;
 		$this->clientSecret = $clientSecret;
 		$this->urlAuth = $urlAuth;
 		$this->urlToken = $urlToken ;
 		$this->urlResult = $urlResult ;
+		$this->redirectUri = $redirectUri ;
 	}
 
 	public function getUser(array $params) {
 
 		$result = file_get_contents(
-			$this->url . "client_id=" . $this->client_id
+			$this->urlToken . "client_id=" . $this->clientID
 			. "&client_secret=" . $this->clientSecret
 			. "&" . http_build_query($params)
 		);
@@ -51,6 +53,10 @@ Class Provider {
 	public function getClientId() {
 		return $this->clientID ;
 	}
+
+	public function getRedirectUri() {
+	    return $this->redirectUri ;
+    }
 
 
 }

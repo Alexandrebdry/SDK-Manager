@@ -9,7 +9,8 @@ $providerArray = [
             "clientSecret"=>"2ce690b11c94aca36d9ec493d9121f9dbd5c96a5",
             "urlAuth"=>"http://localhost:8081/auth?",
             "urlToken"=>"http://oauth-server:8081/token?",
-            "urlResult"=>"http://oauth-server:8081/api"
+            "urlResult"=>"http://oauth-server:8081/api",
+            "redirectUri"=>null
         ],
     "discord"=>
         [
@@ -17,7 +18,8 @@ $providerArray = [
             "clientSecret"=>"4KzIHbZBbQoDiLZD_ZABNKqe4LERzP5p",
             "urlAuth"=>"https://discord.com/api/oauth2/authorize?",
             "urlToken"=>"https://discord.com/api/oauth2/token?",
-            "urlResult"=>"https://discord.com/oauth2/@me?"  
+            "urlResult"=>"https://discord.com/oauth2/@me?" ,
+            "redirectUri"=>null
         ]
 ] ;
 
@@ -41,7 +43,8 @@ switch ($route) {
         foreach ($providers as $providerName => $provider) {
 
             echo "<a href=" . $provider->getUrlAuth() . "response_type=code"
-            . "&client_id=" . $provider->getClientId() 
+            . "&client_id=" . $provider->getClientId()
+            . "&redirect_uri=" .$provider->getRedirectUri()
             . "&scope=basic&state=dsdsfsfds'>Login with " . $providerName . "</a><br>" ;
         }
         break;
