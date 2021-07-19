@@ -12,9 +12,9 @@ Class Provider {
 	public function __construct(string $clientID, string $clientSecret,string $urlAuth, string $urlToken, string $urlResult){
 		$this->clientID = $clientID ;
 		$this->clientSecret = $clientSecret;
-		$this->urlAuth ;
+		$this->urlAuth = $urlAuth;
 		$this->urlToken = $urlToken ;
-		$this->urlResult ;
+		$this->urlResult = $urlResult ;
 	}
 
 	public function getUser(array $params) {
